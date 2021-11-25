@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tv_1"
-        android:text="0" />
+        android:text="@string/btn_text" />
 
     <TextView
         android:id="@+id/tv_2"
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tv_2"
-        android:text="0" />
+        android:text="@string/btn_text" />
 
     <TextView
         android:id="@+id/tv_3"
@@ -46,6 +46,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tv_3"
-        android:text="0" />
+        android:text="@string/btn_text" />
 
 </LinearLayout>
