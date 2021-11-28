@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity(), MainView {
         val listener = View.OnClickListener {
             presenter.btnClick()
 
+
         }
 
         binding.btnCounter1.setOnClickListener(listener)
@@ -33,8 +34,9 @@ class MainActivity : AppCompatActivity(), MainView {
         binding.btnCounter1.text = text
         binding.btnCounter2.text = text
         binding.btnCounter3.text = text
-
     }
+
+
 
 }
 
