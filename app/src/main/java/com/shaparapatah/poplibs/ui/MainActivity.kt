@@ -1,11 +1,13 @@
-package com.shaparapatah.poplibs
+package com.shaparapatah.poplibs.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.shaparapatah.poplibs.databinding.ActivityMainBinding
+import com.shaparapatah.poplibs.presenter.MainPresenter
 
 class MainActivity : AppCompatActivity(), MainView {
+
     private var _binding: ActivityMainBinding? = null
     private val binding
         get() = _binding!!
@@ -17,8 +19,9 @@ class MainActivity : AppCompatActivity(), MainView {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val listener = View.OnClickListener { view ->
-            presenter.counterClick(view.id)
+        val listener = View.OnClickListener {
+            presenter.btnClick()
+
         }
 
         binding.btnCounter1.setOnClickListener(listener)
@@ -26,10 +29,13 @@ class MainActivity : AppCompatActivity(), MainView {
         binding.btnCounter3.setOnClickListener(listener)
     }
 
-    override fun setButtonText(index: Int, text: String) = when (index) {
-        0 -> binding.btnCounter1.text = text
-        1 -> binding.btnCounter2.text = text
-        2 -> binding.btnCounter3.text = text
-        else -> error("Неверный индекс")
+    override fun setButtonText(text: String) {
+        binding.btnCounter1.text = text
+        binding.btnCounter2.text = text
+        binding.btnCounter3.text = text
+
     }
+
 }
+
+
