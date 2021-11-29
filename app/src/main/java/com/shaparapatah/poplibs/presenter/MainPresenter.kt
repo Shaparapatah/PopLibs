@@ -10,10 +10,18 @@ class MainPresenter(
     private val model = CountersModel()
 
 
-    fun btnClick() {
-        view.let {
-            val text = model.increment(0)
-            it.setButtonText(text.toString())
-        }
+    fun onClicked0() {
+        val nextValue = model.increment0()
+        view.setButtonText0(nextValue.toString())
+    }
+
+    fun onClicked1() {
+        val nextValue = model.increment1()
+        view.setButtonText1(nextValue.toString())
+    }
+
+    fun onClicked2() {
+        val nextValue = model.increment2()
+        view.setButtonText2(nextValue.toString())
     }
 }
