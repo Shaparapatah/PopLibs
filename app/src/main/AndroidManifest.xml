@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PopLibs">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.users.UsersActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
