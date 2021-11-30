@@ -3,15 +3,25 @@ package com.shaparapatah.poplibs.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.shaparapatah.poplibs.databinding.ActivityMainBinding
+import com.shaparapatah.poplibs.model.CountersModel
 import com.shaparapatah.poplibs.presenter.MainPresenter
+import moxy.MvpAppCompatActivity
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
 
-class MainActivity : AppCompatActivity(), MainView {
+class MainActivity : MvpAppCompatActivity(), MainView {
 
     private var _binding: ActivityMainBinding? = null
     private val binding
         get() = _binding!!
 
-    private val presenter = MainPresenter(this)
+    @InjectPresenter
+    lateinit var presenter: MainPresenter
+
+    @ProvidePresenter
+    fun providePresenter(): MainPresenter {
+        return MainPresenter(CountersModel())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
