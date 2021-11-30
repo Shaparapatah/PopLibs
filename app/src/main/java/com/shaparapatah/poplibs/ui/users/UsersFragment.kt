@@ -1,6 +1,9 @@
 package com.shaparapatah.poplibs.ui.users
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shaparapatah.poplibs.databinding.ActivityMainBinding
@@ -8,9 +11,10 @@ import com.shaparapatah.poplibs.databinding.FragmentUserBinding
 import com.shaparapatah.poplibs.domain.GitHubUsersRepository
 import com.shaparapatah.poplibs.ui.users.adapter.UsersAdapter
 import moxy.MvpAppCompatActivity
+import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class UsersActivity : MvpAppCompatActivity(), UsersView {
+class UsersFragment : MvpAppCompatFragment(), UsersView {
 
     private val presenter by moxyPresenter { UsersPresenter(GitHubUsersRepository()) }
 
@@ -22,14 +26,19 @@ class UsersActivity : MvpAppCompatActivity(), UsersView {
         UsersAdapter(presenter.usersListPresenter)
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentUserBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        _binding = FragmentUserBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-
-        binding.usersRecycler.layoutManager = LinearLayoutManager(this)
+        binding.usersRecycler.layoutManager = LinearLayoutManager(requireContext())
         binding.usersRecycler.adapter = adapter
     }
 
