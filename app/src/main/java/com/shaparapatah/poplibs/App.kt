@@ -25,6 +25,6 @@ class App : Application() {
     companion object {
         private var _instance: App? = null
         val instance
-            get() = _instance
+            get() = _instance!!
     }
 }

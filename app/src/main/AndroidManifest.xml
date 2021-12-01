@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PopLibs">
         <activity
-            android:name=".ui.users.UsersFragment"
+            android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

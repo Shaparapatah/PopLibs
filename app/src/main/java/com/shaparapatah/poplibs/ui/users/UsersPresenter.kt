@@ -1,12 +1,16 @@
 package com.shaparapatah.poplibs.ui.users
 
+import com.github.terrakok.cicerone.Router
 import com.shaparapatah.poplibs.domain.GitHubUsersRepository
 import com.shaparapatah.poplibs.model.GithubUserModel
+import com.shaparapatah.poplibs.ui.base.BackButtonListener
 import com.shaparapatah.poplibs.ui.base.IListPresenter
 import moxy.MvpPresenter
 
 class UsersPresenter(
+    private val router: Router,
     private val usersRepository: GitHubUsersRepository
+
 ) : MvpPresenter<UsersView>() {
 
     val usersListPresenter = UsersListPresenter()
@@ -38,5 +42,10 @@ class UsersPresenter(
             view.setLogin(user.login)
         }
 
+    }
+
+     fun backPressed(): Boolean {
+        router.exit()
+        return true
     }
 }
