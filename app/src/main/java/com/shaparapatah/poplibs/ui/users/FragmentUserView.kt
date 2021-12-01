@@ -1,4 +1,4 @@
-package com.shaparapatah.poplibs.ui.users.adapter
+package com.shaparapatah.poplibs.ui.users
 
 import android.os.Bundle
 import android.view.LayoutInflater

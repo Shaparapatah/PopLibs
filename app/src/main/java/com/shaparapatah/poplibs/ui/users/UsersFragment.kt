@@ -4,15 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shaparapatah.poplibs.App
-import com.shaparapatah.poplibs.databinding.ActivityMainBinding
 import com.shaparapatah.poplibs.databinding.FragmentUserBinding
 import com.shaparapatah.poplibs.domain.GitHubUsersRepository
+import com.shaparapatah.poplibs.model.GithubUserModel
 import com.shaparapatah.poplibs.ui.base.BackButtonListener
 import com.shaparapatah.poplibs.ui.users.adapter.UsersAdapter
-import moxy.MvpAppCompatActivity
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
@@ -30,14 +28,14 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         get() = _binding!!
 
     private val adapter by lazy {
-        UsersAdapter(presenter.usersListPresenter)
+        UsersAdapter(presenter::onUserClicked)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentUserBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -47,11 +45,11 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
         binding.usersRecycler.layoutManager = LinearLayoutManager(requireContext())
         binding.usersRecycler.adapter = adapter
+
     }
 
-
-    override fun updateList() {
-        adapter.notifyDataSetChanged()
+    override fun updateList(users: List<GithubUserModel>) {
+        adapter.submitList(users)
     }
 
     override fun backPressed(): Boolean {

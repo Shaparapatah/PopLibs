@@ -3,7 +3,7 @@ package com.shaparapatah.poplibs.screens
 import androidx.core.os.bundleOf
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.shaparapatah.poplibs.ui.users.UsersFragment
-import com.shaparapatah.poplibs.ui.users.adapter.FragmentUserView
+import com.shaparapatah.poplibs.ui.users.FragmentUserView
 
 object AppScreens {
 
