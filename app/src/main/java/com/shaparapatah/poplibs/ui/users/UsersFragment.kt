@@ -37,7 +37,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentUserBinding.inflate(inflater, container, false)
         return binding.root
     }

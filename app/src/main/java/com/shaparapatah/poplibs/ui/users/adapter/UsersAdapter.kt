@@ -5,12 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.shaparapatah.poplibs.databinding.ItemUserBinding
+import com.shaparapatah.poplibs.domain.GitHubUsersRepository
 import com.shaparapatah.poplibs.model.GithubUserModel
+import com.shaparapatah.poplibs.ui.base.IListPresenter
 import com.shaparapatah.poplibs.ui.users.UserItemView
 import com.shaparapatah.poplibs.ui.users.UsersPresenter
 
 class UsersAdapter(
-    private val presenter: UsersPresenter.UsersListPresenter
+    private val presenter: UsersPresenter.UsersListPresenter,
 ) : RecyclerView.Adapter<UsersAdapter.UserViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {

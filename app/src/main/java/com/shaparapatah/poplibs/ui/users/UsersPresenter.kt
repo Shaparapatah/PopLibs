@@ -19,7 +19,9 @@ class UsersPresenter(
         super.onFirstViewAttach()
         loadData()
 
-        usersListPresenter.itemClickListener = {} //todo
+        usersListPresenter.itemClickListener = {
+            viewState.updateList()
+        }
     }
 
     private fun loadData() {
@@ -32,7 +34,7 @@ class UsersPresenter(
 
         val users = mutableListOf<GithubUserModel>()
 
-        override var itemClickListener: () -> Unit = {}
+        override var itemClickListener: (UserItemView) -> Unit = {}
 
         override fun getCount() = users.size
 
@@ -44,7 +46,7 @@ class UsersPresenter(
 
     }
 
-     fun backPressed(): Boolean {
+    fun backPressed(): Boolean {
         router.exit()
         return true
     }

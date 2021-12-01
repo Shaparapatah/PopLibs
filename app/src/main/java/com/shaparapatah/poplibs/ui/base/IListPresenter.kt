@@ -1,8 +1,10 @@
 package com.shaparapatah.poplibs.ui.base
 
+import com.shaparapatah.poplibs.ui.users.UserItemView
+
 interface IListPresenter<V : IItemView> {
 
-    var itemClickListener: () -> Unit
+    var itemClickListener: (UserItemView) -> Unit
 
     fun getCount(): Int
 
