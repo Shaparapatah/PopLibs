@@ -13,9 +13,7 @@ class MainPresenter(
 
         router.replaceScreen(AppScreens.usersScreen())
 
-
     }
-
 
     fun backPressed() {
         router.exit()

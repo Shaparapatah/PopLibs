@@ -5,15 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import com.shaparapatah.poplibs.App
 import com.shaparapatah.poplibs.databinding.FragmentUserViewBinding
-import com.shaparapatah.poplibs.domain.GitHubUsersRepository
 import com.shaparapatah.poplibs.model.GithubUserModel
 import com.shaparapatah.poplibs.ui.base.BackButtonListener
-import com.shaparapatah.poplibs.ui.main.MainPresenter
-import com.shaparapatah.poplibs.ui.users.adapter.UsersAdapter
 import moxy.MvpAppCompatFragment
-import moxy.ktx.moxyPresenter
 
 class FragmentUserView : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
@@ -36,7 +31,8 @@ class FragmentUserView : MvpAppCompatFragment(), UsersView, BackButtonListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.textView.setOnClickListener { presenter.onUserClicked() }
+        //binding.textView.setOnClickListener { presenter.onUserClicked() }
+        binding.textView.text = tag
 
     }
 
