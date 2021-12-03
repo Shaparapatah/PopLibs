@@ -27,7 +27,7 @@ class UsersPresenter(
         //todo
 
 
-        router.navigateTo(AppScreens.userScreen(""))
+        router.navigateTo(AppScreens.userScreen(userModel.toString()))
     }
 
     fun backPressed(): Boolean {

@@ -31,7 +31,7 @@ class FragmentUserView : MvpAppCompatFragment(), UsersView, BackButtonListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //binding.textView.setOnClickListener { presenter.onUserClicked() }
+
         binding.textView.text = tag
 
     }
