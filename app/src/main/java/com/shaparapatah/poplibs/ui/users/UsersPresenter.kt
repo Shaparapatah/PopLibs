@@ -3,6 +3,7 @@ package com.shaparapatah.poplibs.ui.users
 import com.github.terrakok.cicerone.Router
 import com.shaparapatah.poplibs.domain.GitHubUsersRepository
 import com.shaparapatah.poplibs.model.GithubUserModel
+import com.shaparapatah.poplibs.screens.AppScreens
 import moxy.MvpPresenter
 
 class UsersPresenter(
@@ -24,6 +25,8 @@ class UsersPresenter(
 
     fun onUserClicked(userModel: GithubUserModel) {
         //todo
+
+        router.navigateTo(AppScreens.userScreen(""))
     }
 
     fun backPressed(): Boolean {

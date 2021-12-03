@@ -2,8 +2,8 @@ package com.shaparapatah.poplibs.screens
 
 import androidx.core.os.bundleOf
 import com.github.terrakok.cicerone.androidx.FragmentScreen
-import com.shaparapatah.poplibs.ui.users.UsersFragment
 import com.shaparapatah.poplibs.ui.users.FragmentUserView
+import com.shaparapatah.poplibs.ui.users.UsersFragment
 
 object AppScreens {
 
@@ -11,11 +11,8 @@ object AppScreens {
         UsersFragment()
     }
 
-    fun userScreen(userLogin: String) = FragmentScreen {
-        FragmentUserView().apply {
-            arguments = bundleOf(
-                "userLogin" to userLogin
-            )
-        }
+    fun userScreen(userLogin: String) = FragmentScreen("user($userLogin)") {
+        FragmentUserView.getNewInstance(userLogin)
+
     }
 }

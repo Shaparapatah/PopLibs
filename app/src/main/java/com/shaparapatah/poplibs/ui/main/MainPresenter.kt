@@ -13,8 +13,9 @@ class MainPresenter(
 
         router.replaceScreen(AppScreens.usersScreen())
 
-        router.navigateTo(AppScreens.userScreen(viewState.toString()))
+
     }
+
 
     fun backPressed() {
         router.exit()

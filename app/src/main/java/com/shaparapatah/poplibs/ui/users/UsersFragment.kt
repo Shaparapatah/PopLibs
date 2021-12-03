@@ -35,7 +35,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentUserBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -55,5 +55,10 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     override fun backPressed(): Boolean {
         presenter.backPressed()
         return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
