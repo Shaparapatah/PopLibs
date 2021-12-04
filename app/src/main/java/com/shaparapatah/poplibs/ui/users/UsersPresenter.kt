@@ -24,9 +24,6 @@ class UsersPresenter(
     }
 
     fun onUserClicked(userModel: GithubUserModel) {
-        //todo
-
-
         router.navigateTo(AppScreens.userScreen(userModel.toString()))
     }
 
