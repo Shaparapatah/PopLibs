@@ -1,6 +1,7 @@
 package com.shaparapatah.poplibs.domain
 
 import com.shaparapatah.poplibs.model.GithubUserModel
+import io.reactivex.rxjava3.core.Observable
 
 class GitHubUsersRepository {
 
@@ -14,7 +15,7 @@ class GitHubUsersRepository {
     )
 
 
-    fun getUsers(): List<GithubUserModel> {
-        return users
+    fun getUsers(): Observable<List<GithubUserModel>> {
+        return Observable.just(users)
     }
 }
