@@ -19,10 +19,14 @@ class UsersPresenter(
 
     private fun loadData() {
         usersRepository.getUsers()
-            .subscribe{
-                viewState.updateList(it)
-            }
-
+            .subscribe(
+                {
+                    viewState.updateList(it)
+                },
+                {
+                    error("Ошибка!")
+                },
+            )
 
     }
 
