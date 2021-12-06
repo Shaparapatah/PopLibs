@@ -19,7 +19,7 @@ class ViewActivity : MvpAppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, FragmentView.newInstance()).commit()
+                .replace(R.id.container, FragmentPicture.newInstance()).commit()
         }
     }
 }

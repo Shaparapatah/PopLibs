@@ -27,12 +27,12 @@ class UsersPresenter(
                     error("Ошибка!")
                 },
             )
-
     }
 
     fun onUserClicked(userModel: GithubUserModel) {
         router.navigateTo(AppScreens.userScreen(userModel.toString()))
     }
+
 
     fun backPressed(): Boolean {
         router.exit()

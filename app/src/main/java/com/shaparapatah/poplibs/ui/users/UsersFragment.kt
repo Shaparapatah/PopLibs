@@ -52,6 +52,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         adapter.submitList(users)
     }
 
+
     override fun backPressed(): Boolean {
         presenter.backPressed()
         return true

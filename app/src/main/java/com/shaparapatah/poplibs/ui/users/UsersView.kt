@@ -8,4 +8,5 @@ interface UsersView : MvpView {
 
     @AddToEndSingle
     fun updateList(users: List<GithubUserModel>)
+
 }
