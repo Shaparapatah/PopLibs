@@ -33,10 +33,9 @@ class FragmentPicture : MvpAppCompatFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //binding.buttonPicture.setOnClickListener {
-        /// TODO: 05.12.2021
+        binding.buttonPicture.setOnClickListener {
         loadImage()
-        //}
+        }
     }
 
     private fun loadImage() {
