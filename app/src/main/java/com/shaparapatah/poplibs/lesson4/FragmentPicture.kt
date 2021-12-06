@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.shaparapatah.poplibs.databinding.FragmentPictureBinding
 import moxy.MvpAppCompatFragment
+import java.net.URL
 import java.util.concurrent.Executors
 
 class FragmentPicture : MvpAppCompatFragment() {
@@ -34,6 +35,11 @@ class FragmentPicture : MvpAppCompatFragment() {
 
         //binding.buttonPicture.setOnClickListener {
         /// TODO: 05.12.2021
+        loadImage()
+        //}
+    }
+
+    private fun loadImage() {
         val executor = Executors.newSingleThreadExecutor()
         val handler = Handler(Looper.getMainLooper())
         var image: Bitmap? = null
@@ -42,7 +48,7 @@ class FragmentPicture : MvpAppCompatFragment() {
             val imageURL =
                 "https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200x200-min.png"
             try {
-                val _in = java.net.URL(imageURL).openStream()
+                val _in = URL(imageURL).openStream()
                 image = BitmapFactory.decodeStream(_in)
                 handler.post {
                     binding.imageView.setImageBitmap(image)
@@ -51,8 +57,7 @@ class FragmentPicture : MvpAppCompatFragment() {
                 e.printStackTrace()
             }
         }
-    //}
-}
+    }
 
 
     companion object {
