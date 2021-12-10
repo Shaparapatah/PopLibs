@@ -10,7 +10,7 @@ interface ImageConverterView : MvpView {
     fun init()
 
     @AddToEndSingle
-    fun showOriginImage(uri: Uri)
+    fun showOriginalImage(uri: Uri)
 
     @AddToEndSingle
     fun showConvertedImage(uri: Uri)

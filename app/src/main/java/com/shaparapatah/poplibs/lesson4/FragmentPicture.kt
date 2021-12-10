@@ -1,5 +1,6 @@
 package com.shaparapatah.poplibs.lesson4
 
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -7,12 +8,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.shaparapatah.poplibs.App
 import com.shaparapatah.poplibs.databinding.FragmentPictureBinding
 import com.shaparapatah.poplibs.model.ConvertJpgToPng
 import com.shaparapatah.poplibs.ui.base.BackButtonListener
+import com.shaparapatah.poplibs.ui.base.MySchedulersFactory
 import com.shaparapatah.poplibs.ui.main.ImageConverterView
 import moxy.MvpAppCompatActivity
 import moxy.MvpAppCompatFragment
@@ -27,6 +28,7 @@ class FragmentPicture : MvpAppCompatFragment(), ImageConverterView, BackButtonLi
     private val presenter: ConverterPresenter by moxyPresenter {
         ConverterPresenter(
             ConvertJpgToPng(requireContext()),
+            MySchedulersFactory.create(),
             App.instance.router
         )
     }
@@ -41,37 +43,37 @@ class FragmentPicture : MvpAppCompatFragment(), ImageConverterView, BackButtonLi
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        isStoragePermissionGranted()
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 111 && resultCode == MvpAppCompatActivity.RESULT_OK) {
+        if (requestCode == 111 && resultCode == Activity.RESULT_OK) {
             imageUri = data?.data
-            imageUri?.let {
-                presenter.originalImage(it)
-            }
+            imageUri?.let { presenter.showOriginalImage(it) }
         }
     }
 
     override fun backPressed(): Boolean = presenter.backPressed()
 
 
-    private fun isStoragePermissionGranted(): Boolean {
-        return if (requireActivity().checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            == PackageManager.PERMISSION_GRANTED
-        ) {
-            true
-        } else {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                1
-            )
-            false
+    override fun init() {
+        binding.buttonPicture.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/jpg"
+            startActivityForResult(intent, 111)
         }
+
+        binding.startConvertingBtn.setOnClickListener {
+            imageUri?.let {
+                (presenter::startConvertingImage)
+            }
+        }
+    }
+
+    override fun showOriginalImage(uri: Uri) {
+        binding.imageView.setImageURI(uri)
+    }
+
+    override fun showConvertedImage(uri: Uri) {
+        binding.convertedImage.setImageURI(uri)
     }
 
     companion object {
@@ -81,22 +83,6 @@ class FragmentPicture : MvpAppCompatFragment(), ImageConverterView, BackButtonLi
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-    }
-
-    override fun init() {
-        binding.buttonPicture.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/jpg"
-            startActivityForResult(intent, 111)
-        }
-    }
-
-    override fun showOriginImage(uri: Uri) {
-        TODO("Not yet implemented")
-    }
-
-    override fun showConvertedImage(uri: Uri) {
-        TODO("Not yet implemented")
     }
 
 }

@@ -1,9 +1,6 @@
 package com.shaparapatah.poplibs.lesson4
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
 import com.shaparapatah.poplibs.R
 import com.shaparapatah.poplibs.databinding.ActivityViewBinding
 import moxy.MvpAppCompatActivity
