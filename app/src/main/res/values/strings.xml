@@ -6,6 +6,8 @@
     <string name="counter_two">Счетчик 2</string>
     <string name="counter_three">Счетчик 3</string>
     <string name="btn_text">0</string>
-    <string name="read_btn">read btn</string>
+    <string name="read_btn">Выбрать изображение</string>
+    <string name="selected_image">Выбранное изображение</string>
+    <string name="start_convert_btn">Конвертировать в .png</string>
 
 </resources>
