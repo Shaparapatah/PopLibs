@@ -1,9 +1,12 @@
 package com.shaparapatah.poplibs.ui.users
 
+import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.shaparapatah.poplibs.domain.GitHubUsersRepository
 import com.shaparapatah.poplibs.model.GithubUserModel
 import com.shaparapatah.poplibs.screens.AppScreens
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 
 class UsersPresenter(
@@ -19,18 +22,18 @@ class UsersPresenter(
 
     private fun loadData() {
         usersRepository.getUsers()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                {
-                    viewState.updateList(it)
-                },
-                {
-                    error("Ошибка!")
-                },
-            )
+                { users ->
+                    viewState.updateList(users)
+                }, { e ->
+                    Log.e("Retrofit", "Ошибка при получении пользователей", e)
+                })
     }
 
     fun onUserClicked(userModel: GithubUserModel) {
-        router.navigateTo(AppScreens.userScreen(userModel.toString()))
+        //todo   router.navigateTo(AppScreens.userScreen(userModel.toString()))
     }
 
 

@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shaparapatah.poplibs.App
 import com.shaparapatah.poplibs.databinding.FragmentUserBinding
 import com.shaparapatah.poplibs.domain.GitHubUsersRepository
+import com.shaparapatah.poplibs.domain.GithubUsersRepositoryImpl
 import com.shaparapatah.poplibs.model.GithubUserModel
+import com.shaparapatah.poplibs.remote.ApiHolder
 import com.shaparapatah.poplibs.ui.base.BackButtonListener
 import com.shaparapatah.poplibs.ui.users.adapter.UsersAdapter
 import moxy.MvpAppCompatFragment
@@ -19,7 +22,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     private val presenter by moxyPresenter {
         UsersPresenter(
             App.instance.router,
-            GitHubUsersRepository()
+            GithubUsersRepositoryImpl(ApiHolder.retrofitService)
         )
     }
 
@@ -51,7 +54,6 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     override fun updateList(users: List<GithubUserModel>) {
         adapter.submitList(users)
     }
-
 
     override fun backPressed(): Boolean {
         presenter.backPressed()

@@ -12,7 +12,7 @@ import moxy.MvpAppCompatFragment
 
 class FragmentUserView : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
-    lateinit var presenter: UsersPresenter
+    private lateinit var presenter: UsersPresenter
 
     private var _binding: FragmentUserViewBinding? = null
     private val binding
@@ -59,5 +59,6 @@ class FragmentUserView : MvpAppCompatFragment(), UsersView, BackButtonListener {
     override fun updateList(users: List<GithubUserModel>) {
         binding.textView.text = users.toString()
     }
+
 
 }
