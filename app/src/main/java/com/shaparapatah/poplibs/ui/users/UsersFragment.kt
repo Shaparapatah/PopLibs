@@ -13,6 +13,7 @@ import com.shaparapatah.poplibs.domain.GithubUsersRepositoryImpl
 import com.shaparapatah.poplibs.model.GithubUserModel
 import com.shaparapatah.poplibs.remote.ApiHolder
 import com.shaparapatah.poplibs.ui.base.BackButtonListener
+import com.shaparapatah.poplibs.ui.imageloading.GlideImageLoader
 import com.shaparapatah.poplibs.ui.users.adapter.UsersAdapter
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -31,7 +32,10 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         get() = _binding!!
 
     private val adapter by lazy {
-        UsersAdapter(presenter::onUserClicked)
+        UsersAdapter(
+            presenter::onUserClicked,
+            GlideImageLoader()
+        )
     }
 
     override fun onCreateView(
@@ -54,6 +58,17 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     override fun updateList(users: List<GithubUserModel>) {
         adapter.submitList(users)
     }
+
+    override fun showLoading() {
+        binding.loadingView.isVisible = true
+        binding.usersRecycler.isVisible = false
+    }
+
+    override fun hideLoading() {
+        binding.loadingView.isVisible = false
+        binding.usersRecycler.isVisible = true
+    }
+
 
     override fun backPressed(): Boolean {
         presenter.backPressed()

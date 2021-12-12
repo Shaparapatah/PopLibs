@@ -24,11 +24,14 @@ class UsersPresenter(
         usersRepository.getUsers()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { viewState.showLoading() }
             .subscribe(
                 { users ->
                     viewState.updateList(users)
+                    viewState.hideLoading()
                 }, { e ->
                     Log.e("Retrofit", "Ошибка при получении пользователей", e)
+                    viewState.hideLoading()
                 })
     }
 
