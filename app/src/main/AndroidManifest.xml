@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PopLibs">
         <activity
-            android:name=".lesson4.ViewActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".lesson4.ViewActivity"
             android:exported="true">
 
         </activity>
