@@ -8,7 +8,7 @@ import com.shaparapatah.poplibs.ui.users.UsersFragment
 
 object AppScreens : IScreens {
 
-    override fun users() = FragmentScreen {
+    override fun users(): Screen = FragmentScreen {
         UsersFragment()
     }
 

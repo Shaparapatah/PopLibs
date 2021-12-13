@@ -16,7 +16,11 @@ class UserInfoAdapter(
         RepositoryListItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
-    )
+    ).apply {
+        itemView.setOnClickListener {
+            presenter.itemClickListener?.invoke(this)
+        }
+    }
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =

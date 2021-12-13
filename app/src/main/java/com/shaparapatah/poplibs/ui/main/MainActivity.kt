@@ -3,6 +3,7 @@ package com.shaparapatah.poplibs.ui.main
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.shaparapatah.poplibs.App
 import com.shaparapatah.poplibs.R
+import com.shaparapatah.poplibs.screens.AppScreens
 import com.shaparapatah.poplibs.ui.base.BackButtonListener
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
@@ -11,7 +12,7 @@ class MainActivity : MvpAppCompatActivity(R.layout.activity_main), MainView {
 
     private val navigator = AppNavigator(this, R.id.container)
 
-    private val presenter by moxyPresenter { MainPresenter(App.instance.router) }
+    private val presenter by moxyPresenter { MainPresenter(App.instance.router, AppScreens) }
 
     override fun onResumeFragments() {
         super.onResumeFragments()
@@ -24,7 +25,7 @@ class MainActivity : MvpAppCompatActivity(R.layout.activity_main), MainView {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+
 
         supportFragmentManager.fragments.forEach {
             if (it is BackButtonListener && it.backPressed()) {

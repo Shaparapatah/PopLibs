@@ -15,62 +15,54 @@ import moxy.MvpPresenter
 
 class UserInfoPresenter(
     val userLogin: String? = null,
-    private val githubUserRepo: GithubUsersRepositoryImpl,
-    private val router: Router
+    private val githubUsersRepo: GithubUsersRepositoryImpl,
+    val router: Router
 ) : MvpPresenter<UserInfoView>() {
-
     val disposables = CompositeDisposable()
-
 
     class ReposListPresenter : IReposListPresenter {
         val repositories = mutableListOf<Repository>()
         override var itemClickListener: ((RepoItemView) -> Unit)? = null
+        override fun getCount() = repositories.size
+
         override fun bindView(view: RepoItemView) {
             val repos = repositories[view.pos]
             repos.name.let {
                 view.setName(repos.name)
-                repos.description.let { view.setDescription(repos.description) }
+                repos.description?.let { view.setDescription((repos.description)) }
             }
         }
-
-        override fun getCount() = repositories.size
     }
-
 
     val reposListPresenter = ReposListPresenter()
 
     override fun onFirstViewAttach() {
-        super.onFirstViewAttach()
         if (userLogin != null) {
             viewState.init()
-            githubUserRepo
+            githubUsersRepo
                 .getUserByLogin(userLogin)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : SingleObserver<GithubUserModel> {
-                    override fun onSubscribe(d: Disposable) {
+                    override fun onSubscribe(d: Disposable?) {
                         disposables.add(d)
                     }
 
-                    override fun onSuccess(userInfo: GithubUserModel?) {
-                        if (userInfo != null) {
-                            userInfo.let {
+                    override fun onSuccess(iserInfo: GithubUserModel?) {
+                        if (iserInfo != null) {
+                            iserInfo.let {
                                 viewState.showLogin(it.login)
                                 viewState.setImageAvatar(it.avatarUrl)
                                 viewState.showTopString("Верхняя строка")
-
-                                githubUserRepo
+                                githubUsersRepo
                                     .getUserRepos(userLogin, null, null, null, 99, 1)
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(object : SingleObserver<List<Repository>> {
-                                        override fun onSubscribe(d: Disposable) {
+                                        override fun onSubscribe(d: Disposable?) {
                                             disposables.add(d)
                                         }
 
                                         override fun onSuccess(t: List<Repository>) {
-                                            viewState.showTopString(
-                                                "Загружено репозиториев :"
-                                                        + t.size + " из " + userInfo.publicRepos
-                                            )
+                                            viewState.showTopString("Загружено  репозиториев :" + t.size + " из " + iserInfo.publicRepos)
                                             reposListPresenter.repositories.addAll(t)
                                             reposListPresenter.itemClickListener = { itemView ->
                                                 router.navigateTo(AppScreens.userInfo(t[itemView.pos].name))
@@ -78,18 +70,18 @@ class UserInfoPresenter(
                                             viewState.updateList()
                                         }
 
-                                        override fun onError(e: Throwable) {
-                                            viewState.showTopString("Ошибка загрузки репозиториев")
+                                        override fun onError(e: Throwable?) {
+                                            viewState.showTopString("Ошибка при попытке чтения спискаа репозиториев")
                                         }
                                     })
+
                             }
                         }
                     }
 
-                    override fun onError(e: Throwable) {
-                        viewState.showTopString("Ошибка загрузки")
-                    }
+                    override fun onError(e: Throwable?) {
 
+                    }
                 })
         }
     }
@@ -102,5 +94,4 @@ class UserInfoPresenter(
     override fun onDestroy() {
         disposables.clear()
     }
-
 }

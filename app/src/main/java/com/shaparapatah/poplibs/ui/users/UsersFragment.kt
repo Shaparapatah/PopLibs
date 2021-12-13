@@ -41,13 +41,6 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.usersRecycler.layoutManager = LinearLayoutManager(requireContext())
-        binding.usersRecycler.adapter = adapter
-
-    }
 
     override fun updateList() {
         adapter?.notifyDataSetChanged()
@@ -66,6 +59,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     override fun init() {
         binding.usersRecycler.layoutManager = LinearLayoutManager(context)
         adapter = UsersAdapter(presenter.userListPresenter, GlideImageLoader())
+        binding.usersRecycler.adapter = adapter
     }
 
 

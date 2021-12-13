@@ -3,12 +3,8 @@ package com.shaparapatah.poplibs.ui.users.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.shaparapatah.poplibs.databinding.ItemUserBinding
 import com.shaparapatah.poplibs.databinding.ListItemBinding
-import com.shaparapatah.poplibs.model.GithubUserModel
 import com.shaparapatah.poplibs.ui.base.IUserListPresenter
 import com.shaparapatah.poplibs.ui.base.UserItemView
 import com.shaparapatah.poplibs.ui.imageloading.ImageLoader
@@ -24,7 +20,7 @@ class UsersAdapter(
         )
     ).apply {
         itemView.setOnClickListener {
-            presenter.itemClickListener
+            presenter.itemClickListener?.invoke(this)
         }
     }
 
