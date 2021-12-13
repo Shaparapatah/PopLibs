@@ -7,43 +7,51 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.shaparapatah.poplibs.databinding.ItemUserBinding
+import com.shaparapatah.poplibs.databinding.ListItemBinding
 import com.shaparapatah.poplibs.model.GithubUserModel
+import com.shaparapatah.poplibs.ui.base.IUserListPresenter
+import com.shaparapatah.poplibs.ui.base.UserItemView
 import com.shaparapatah.poplibs.ui.imageloading.ImageLoader
 
 class UsersAdapter(
-    private val itemClickListener: (GithubUserModel) -> Unit,
+    private val presenter: IUserListPresenter,
     private val imageLoader: ImageLoader<ImageView>
-) : ListAdapter<GithubUserModel, UsersAdapter.UserViewHolder>(GithubUserItemCallback) {
+) : RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
-        return UserViewHolder(
-            ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
+        ListItemBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
         )
-    }
-
-    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        holder.showUser(currentList[position])
-    }
-
-    inner class UserViewHolder(private val vb: ItemUserBinding) : RecyclerView.ViewHolder(vb.root) {
-
-        fun showUser(user: GithubUserModel) {
-            vb.root.setOnClickListener { itemClickListener(user) }
-
-            vb.tvLogin.text = user.login
-
-            imageLoader.loadInto(user.avatarUrl, vb.userImage)
+    ).apply {
+        itemView.setOnClickListener {
+            presenter.itemClickListener
         }
     }
-}
 
-object GithubUserItemCallback : DiffUtil.ItemCallback<GithubUserModel>() {
-
-    override fun areItemsTheSame(oldItem: GithubUserModel, newItem: GithubUserModel): Boolean {
-        return oldItem == newItem
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        presenter.bindView(holder.apply { pos = position })
     }
 
-    override fun areContentsTheSame(oldItem: GithubUserModel, newItem: GithubUserModel): Boolean {
-        return oldItem == newItem
+    override fun getItemCount() = presenter.getCount()
+
+
+    inner class ViewHolder(private val vb: ListItemBinding) : RecyclerView.ViewHolder(vb.root),
+        UserItemView {
+        override fun setLogin(text: String) {
+            vb.tvLogin.text = text
+        }
+
+        override fun setImageAvatar(url: String) {
+            imageLoader.loadInto(url, vb.imageViewUserAvatar)
+        }
+
+        override var pos = -1
+
     }
 }
+
+
+
+
+
+

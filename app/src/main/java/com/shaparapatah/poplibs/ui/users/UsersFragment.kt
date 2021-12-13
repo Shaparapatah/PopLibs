@@ -8,9 +8,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shaparapatah.poplibs.App
 import com.shaparapatah.poplibs.databinding.FragmentUserBinding
-import com.shaparapatah.poplibs.domain.GitHubUsersRepository
 import com.shaparapatah.poplibs.domain.GithubUsersRepositoryImpl
-import com.shaparapatah.poplibs.model.GithubUserModel
 import com.shaparapatah.poplibs.remote.ApiHolder
 import com.shaparapatah.poplibs.ui.base.BackButtonListener
 import com.shaparapatah.poplibs.ui.imageloading.GlideImageLoader
@@ -27,16 +25,12 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         )
     }
 
+
     private var _binding: FragmentUserBinding? = null
     private val binding
         get() = _binding!!
 
-    private val adapter by lazy {
-        UsersAdapter(
-            presenter::onUserClicked,
-            GlideImageLoader()
-        )
-    }
+    var adapter: UsersAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,8 +49,8 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     }
 
-    override fun updateList(users: List<GithubUserModel>) {
-        adapter.submitList(users)
+    override fun updateList() {
+        adapter?.notifyDataSetChanged()
     }
 
     override fun showLoading() {
@@ -67,6 +61,11 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     override fun hideLoading() {
         binding.loadingView.isVisible = false
         binding.usersRecycler.isVisible = true
+    }
+
+    override fun init() {
+        binding.usersRecycler.layoutManager = LinearLayoutManager(context)
+        adapter = UsersAdapter(presenter.userListPresenter, GlideImageLoader())
     }
 
 

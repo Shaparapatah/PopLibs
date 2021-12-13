@@ -2,20 +2,17 @@ package com.shaparapatah.poplibs.lesson4
 
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
 import com.shaparapatah.poplibs.App
 import com.shaparapatah.poplibs.databinding.FragmentPictureBinding
 import com.shaparapatah.poplibs.model.ConvertJpgToPng
 import com.shaparapatah.poplibs.ui.base.BackButtonListener
 import com.shaparapatah.poplibs.ui.base.MySchedulersFactory
 import com.shaparapatah.poplibs.ui.main.ImageConverterView
-import moxy.MvpAppCompatActivity
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 

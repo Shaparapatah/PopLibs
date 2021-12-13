@@ -1,12 +1,15 @@
 package com.shaparapatah.poplibs.ui.users
 
-import android.util.Log
 import com.github.terrakok.cicerone.Router
 import com.shaparapatah.poplibs.domain.GitHubUsersRepository
-import com.shaparapatah.poplibs.model.GithubUserModel
+import com.shaparapatah.poplibs.model.GithubUser
 import com.shaparapatah.poplibs.screens.AppScreens
+import com.shaparapatah.poplibs.ui.base.IUserListPresenter
+import com.shaparapatah.poplibs.ui.base.UserItemView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.core.SingleObserver
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
 import moxy.MvpPresenter
 
 class UsersPresenter(
@@ -14,31 +17,57 @@ class UsersPresenter(
     private val usersRepository: GitHubUsersRepository,
 ) : MvpPresenter<UsersView>() {
 
+    class UserListPresenter : IUserListPresenter {
+        val users = mutableListOf<GithubUser>()
+        override var itemClickListener: ((UserItemView) -> Unit)? = null
+
+
+        override fun bindView(view: UserItemView) {
+            val user = users[view.pos]
+            user.login.let {
+                view.setLogin(user.login)
+                view.setImageAvatar(user.avatarUrl)
+            }
+        }
+
+        override fun getCount() = users.size
+
+    }
+
+    val userListPresenter = UserListPresenter()
+    val disposables = CompositeDisposable()
+
+
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
-        loadData()
-    }
-
-    private fun loadData() {
+        viewState.init()
+        viewState.showLoading()
         usersRepository.getUsers()
-            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { viewState.showLoading() }
-            .subscribe(
-                { users ->
-                    viewState.updateList(users)
-                    viewState.hideLoading()
-                }, { e ->
-                    Log.e("Retrofit", "Ошибка при получении пользователей", e)
-                    viewState.hideLoading()
-                })
-    }
+            .subscribe(object : SingleObserver<List<GithubUser>> {
+                override fun onSubscribe(d: Disposable) {
+                    disposables.add(d)
+                }
 
-    fun onUserClicked(userModel: GithubUserModel) {
-        //todo   router.navigateTo(AppScreens.userScreen(userModel.toString()))
-    }
+                override fun onSuccess(t: List<GithubUser>?) {
+                    if (t != null) {
+                        viewState.hideLoading()
+                        userListPresenter.users.addAll(t)
+                        userListPresenter.itemClickListener = { itemView ->
+                            router.navigateTo(AppScreens.userInfo(t[itemView.pos].login))
+                        }
+                        viewState.updateList()
+                    }
+                }
 
+                override fun onError(e: Throwable) {
+                    Throwable("Ошибка")
+                    viewState.hideLoading()
+                }
+
+            })
+    }
 
     fun backPressed(): Boolean {
         router.exit()

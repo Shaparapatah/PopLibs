@@ -11,7 +11,7 @@ class MainPresenter(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
-        router.replaceScreen(AppScreens.usersScreen())
+        router.replaceScreen(AppScreens.users())
 
     }
 

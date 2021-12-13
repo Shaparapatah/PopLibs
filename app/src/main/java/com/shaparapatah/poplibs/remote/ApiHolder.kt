@@ -17,7 +17,7 @@ object ApiHolder {
 
     private fun getGson(): Gson {
         return GsonBuilder()
-            .excludeFieldsWithoutExposeAnnotation()
+            //.excludeFieldsWithoutExposeAnnotation()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .create()
     }
