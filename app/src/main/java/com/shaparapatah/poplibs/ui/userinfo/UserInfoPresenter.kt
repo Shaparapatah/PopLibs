@@ -71,7 +71,7 @@ class UserInfoPresenter(
                                         }
 
                                         override fun onError(e: Throwable?) {
-                                            viewState.showTopString("Ошибка при попытке чтения спискаа репозиториев")
+                                            viewState.showTopString("Ошибка при попытке чтения списка репозиториев")
                                         }
                                     })
 
