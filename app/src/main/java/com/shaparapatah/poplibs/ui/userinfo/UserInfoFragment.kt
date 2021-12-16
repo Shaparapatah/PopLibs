@@ -10,6 +10,8 @@ import com.shaparapatah.poplibs.App
 import com.shaparapatah.poplibs.databinding.FragmentUserInfoBinding
 import com.shaparapatah.poplibs.domain.GithubUsersRepositoryImpl
 import com.shaparapatah.poplibs.remote.ApiHolder
+import com.shaparapatah.poplibs.remote.connectivity.NetworkStatus
+import com.shaparapatah.poplibs.room.AppDataBase
 import com.shaparapatah.poplibs.ui.base.BackButtonListener
 import com.shaparapatah.poplibs.ui.imageloading.GlideImageLoader
 import moxy.MvpAppCompatFragment
@@ -24,10 +26,16 @@ class UserInfoFragment : MvpAppCompatFragment(), UserInfoView, BackButtonListene
         }
     }
 
+    private val status by lazy { NetworkStatus(requireContext().applicationContext) }
+
     val presenter: UserInfoPresenter by moxyPresenter {
         UserInfoPresenter(
             userLogin,
-            GithubUsersRepositoryImpl(ApiHolder.retrofitService),
+            GithubUsersRepositoryImpl(
+                networkStatus = status,
+                retrofitService = ApiHolder.retrofitService,
+                db = AppDataBase.instance
+            ),
             App.instance.router
         )
     }
