@@ -2,18 +2,20 @@ package com.shaparapatah.poplibs.screens
 
 import com.github.terrakok.cicerone.Screen
 import com.github.terrakok.cicerone.androidx.FragmentScreen
-import com.shaparapatah.poplibs.ui.userinfo.UserInfoFragment
-
+import com.shaparapatah.poplibs.model.GithubUserModel
+import com.shaparapatah.poplibs.ui.repos.ReposFragment
 import com.shaparapatah.poplibs.ui.users.UsersFragment
 
-object AppScreens : IScreens {
+object AppScreens {
 
-    override fun users(): Screen = FragmentScreen {
+    fun usersScreen(): Screen = FragmentScreen {
         UsersFragment()
     }
 
-    override fun userInfo(userLogin: String): Screen = FragmentScreen("user($userLogin)") {
-        UserInfoFragment.getNewInstance(userLogin)
+    fun reposScreen(userModel: GithubUserModel): Screen = FragmentScreen {
+        ReposFragment.newInstance(userModel)
 
     }
+
+
 }

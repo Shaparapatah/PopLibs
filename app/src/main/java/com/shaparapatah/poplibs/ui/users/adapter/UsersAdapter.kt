@@ -3,46 +3,48 @@ package com.shaparapatah.poplibs.ui.users.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.shaparapatah.poplibs.databinding.ListItemBinding
-import com.shaparapatah.poplibs.ui.base.IUserListPresenter
-import com.shaparapatah.poplibs.ui.base.UserItemView
+import com.shaparapatah.poplibs.databinding.ItemUserBinding
+import com.shaparapatah.poplibs.model.GithubUserModel
 import com.shaparapatah.poplibs.ui.imageloading.ImageLoader
 
 class UsersAdapter(
-    private val presenter: IUserListPresenter,
+    private val itemClickListener: (GithubUserModel) -> Unit,
     private val imageLoader: ImageLoader<ImageView>
-) : RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
+) : ListAdapter<GithubUserModel, UsersAdapter.UserViewHolder>(GithubUserItemCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
-        ListItemBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
+        return UserViewHolder(
+            ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
-    ).apply {
-        itemView.setOnClickListener {
-            presenter.itemClickListener?.invoke(this)
-        }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        presenter.bindView(holder.apply { pos = position })
+    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
+        holder.showUser(currentList[position])
     }
 
-    override fun getItemCount() = presenter.getCount()
+    inner class UserViewHolder(private val vb: ItemUserBinding) : RecyclerView.ViewHolder(vb.root) {
 
+        fun showUser(user: GithubUserModel) {
+            vb.root.setOnClickListener { itemClickListener(user) }
 
-    inner class ViewHolder(private val vb: ListItemBinding) : RecyclerView.ViewHolder(vb.root),
-        UserItemView {
-        override fun setLogin(text: String) {
-            vb.tvLogin.text = text
+            vb.tvLogin.text = user.login
+
+            imageLoader.loadInto(user.avatarUrl, vb.userImage)
         }
+    }
+}
 
-        override fun setImageAvatar(url: String) {
-            imageLoader.loadInto(url, vb.imageViewUserAvatar)
-        }
+object GithubUserItemCallback : DiffUtil.ItemCallback<GithubUserModel>() {
 
-        override var pos = -1
+    override fun areItemsTheSame(oldItem: GithubUserModel, newItem: GithubUserModel): Boolean {
+        return oldItem == newItem
+    }
 
+    override fun areContentsTheSame(oldItem: GithubUserModel, newItem: GithubUserModel): Boolean {
+        return oldItem == newItem
     }
 }
 

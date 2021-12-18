@@ -1,9 +1,6 @@
 package com.shaparapatah.poplibs.domain
 
-import com.shaparapatah.poplibs.model.GithubUser
 import com.shaparapatah.poplibs.model.GithubUserModel
-import com.shaparapatah.poplibs.model.Repository
-import com.shaparapatah.poplibs.remote.ApiHolder.retrofitService
 import com.shaparapatah.poplibs.remote.RetrofitService
 import com.shaparapatah.poplibs.remote.connectivity.NetworkStatus
 import com.shaparapatah.poplibs.room.AppDataBase
@@ -15,15 +12,13 @@ class GithubUsersRepositoryImpl(
     private val networkStatus: NetworkStatus,
     private val db: AppDataBase
 ) : GitHubUsersRepository {
-
-
-    override fun getUsers(): Single<List<GithubUser>> {
+    override fun getUsers(): Single<List<GithubUserModel>> {
         return if (networkStatus.isOnline()) {
             retrofitService.getUsers()
                 .flatMap { users ->
                     Single.fromCallable {
                         val roomUsers = users.map { user ->
-                            RoomGithubUser(user.login, user.avatarUrl, user.reposUrl, user.reposUrl)
+                            RoomGithubUser(user.id, user.login, user.avatarUrl, user.reposUrl)
                         }
                         db.userDao.insert(roomUsers)
                         users
@@ -32,11 +27,11 @@ class GithubUsersRepositoryImpl(
         } else {
             Single.fromCallable {
                 db.userDao.getAll().map { roomModel ->
-                    GithubUser(
-                        roomModel.login,
+                    GithubUserModel(
                         roomModel.id,
+                        roomModel.login,
                         roomModel.avatarUrl,
-                        roomModel.reposUrl,
+                        roomModel.reposUrl
                     )
                 }
             }
@@ -44,18 +39,4 @@ class GithubUsersRepositoryImpl(
     }
 
 
-    override fun getUserByLogin(login: String): Single<GithubUserModel> {
-        return retrofitService.getUserByLogin(login)
-    }
-
-    override fun getUserRepos(
-        login: String,
-        type: String?,
-        sort: String?,
-        direction: String?,
-        perPage: Int?,
-        page: Int?
-    ): Single<List<Repository>> {
-        return retrofitService.getUserRepos(login, type, sort, direction, perPage, page)
-    }
 }

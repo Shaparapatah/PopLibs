@@ -1,12 +1,13 @@
 package com.shaparapatah.poplibs.ui.users
 
+import com.shaparapatah.poplibs.model.GithubUserModel
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEndSingle
 
 interface UsersView : MvpView {
 
     @AddToEndSingle
-    fun updateList()
+    fun updateList(users: List<GithubUserModel>)
 
     @AddToEndSingle
     fun showLoading()
@@ -14,7 +15,5 @@ interface UsersView : MvpView {
     @AddToEndSingle
     fun hideLoading()
 
-    @AddToEndSingle
-    fun init()
 
 }

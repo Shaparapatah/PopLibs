@@ -14,5 +14,6 @@
     <string name="user_name">ФИО</string>
     <string name="repository_name">Наименование репозитория</string>
     <string name="repository_description">Описание репозитория</string>
+    <string name="forks_count">Количество форков</string>
 
 </resources>

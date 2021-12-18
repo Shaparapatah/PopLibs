@@ -1,29 +1,19 @@
 package com.shaparapatah.poplibs.remote
 
-import com.shaparapatah.poplibs.model.GithubUser
+import com.shaparapatah.poplibs.model.GithubRepoModel
 import com.shaparapatah.poplibs.model.GithubUserModel
-import com.shaparapatah.poplibs.model.Repository
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.Url
 
 interface RetrofitService {
 
     @GET("/users")
-    fun getUsers(): Single<List<GithubUser>>
+    fun getUsers(): Single<List<GithubUserModel>>
 
 
-    @GET("users/{username}")
-    fun getUserByLogin(@Path("username") login: String): Single<GithubUserModel>
+    @GET()
+    fun getRepos(@Url url: String): Single<List<GithubRepoModel>>
 
-    @GET("/user/{username}/repos")
-    fun getUserRepos(
-        @Path("username") login: String,
-        @Query("type") type: String?,
-        @Query("sort") sort: String?,
-        @Query("direction") direction: String?,
-        @Query("per_page") perPage: Int?,
-        @Query("page") page: Int?
-    ): Single<List<Repository>>
+
 }

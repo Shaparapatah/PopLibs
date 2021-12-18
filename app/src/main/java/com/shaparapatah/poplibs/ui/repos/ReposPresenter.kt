@@ -1,17 +1,18 @@
-package com.shaparapatah.poplibs.ui.users
+package com.shaparapatah.poplibs.ui.repos
 
 import com.github.terrakok.cicerone.Router
-import com.shaparapatah.poplibs.domain.GitHubUsersRepository
+import com.shaparapatah.poplibs.domain.GitHubRepoRepository
+import com.shaparapatah.poplibs.model.GithubRepoModel
 import com.shaparapatah.poplibs.model.GithubUserModel
-import com.shaparapatah.poplibs.screens.AppScreens
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers.io
 import moxy.MvpPresenter
 
-class UsersPresenter(
+class ReposPresenter(
+    private val userModel: GithubUserModel,
     private val router: Router,
-    private val usersRepository: GitHubUsersRepository,
-) : MvpPresenter<UsersView>() {
+    private val repo: GitHubRepoRepository
+) : MvpPresenter<ReposView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -20,23 +21,23 @@ class UsersPresenter(
     }
 
     private fun loadData() {
-        usersRepository.getUsers()
+        repo.getRepos(userModel)
             .subscribeOn(io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { viewState.showLoading() }
             .subscribe(
-                { users ->
-                    viewState.updateList(users)
+                { repos ->
+                    viewState.showRepos(repos)
                     viewState.hideLoading()
 
                 }, {
-                    Throwable("Ошибка загрузки пользователя")
+                    Throwable("Ошибка загрузки репозиториев")
                     viewState.hideLoading()
                 })
     }
 
-    fun onUserClicked(userModel: GithubUserModel) {
-        router.navigateTo(AppScreens.reposScreen(userModel))
+    fun onRepoClicked(repo: GithubRepoModel) {
+        //todo
     }
 
 
