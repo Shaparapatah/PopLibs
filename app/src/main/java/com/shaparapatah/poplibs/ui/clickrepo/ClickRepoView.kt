@@ -12,4 +12,5 @@ interface ClickRepoView : MvpView {
     fun showLoading()
 
     fun hideLoading()
+
 }

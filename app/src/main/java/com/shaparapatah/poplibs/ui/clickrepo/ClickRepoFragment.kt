@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.shaparapatah.poplibs.App
 import com.shaparapatah.poplibs.databinding.FragmentClickReposBinding
 import com.shaparapatah.poplibs.domain.GithubRepoRepositoryImpl
 import com.shaparapatah.poplibs.model.GithubRepoModel
-import com.shaparapatah.poplibs.model.GithubUserModel
 import com.shaparapatah.poplibs.remote.ApiHolder
 import com.shaparapatah.poplibs.remote.connectivity.NetworkStatus
 import com.shaparapatah.poplibs.room.AppDataBase
@@ -37,10 +37,6 @@ class ClickRepoFragment : MvpAppCompatFragment(), ClickRepoView, BackButtonListe
         get() = _binding!!
 
 
-//    private val adapter by lazy {
-//        ClickRepoAdapter { presenter.onRepoClicked(it) }
-//    }
-
     private val repoModel: GithubRepoModel by lazy {
         requireArguments().getSerializable(KEY_REPO_MODEL) as GithubRepoModel
     }
@@ -54,10 +50,16 @@ class ClickRepoFragment : MvpAppCompatFragment(), ClickRepoView, BackButtonListe
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.textViewRepos.text = LinearLayoutManager(requireContext()).toString()
+    }
+
+
     override fun showRepos(repos: List<GithubRepoModel>) {
         binding.textViewRepos.text = repos.toString()
     }
-
 
 
     override fun showLoading() {

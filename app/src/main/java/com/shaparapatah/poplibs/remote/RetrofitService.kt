@@ -15,5 +15,4 @@ interface RetrofitService {
     @GET
     fun getRepos(@Url url: String): Single<List<GithubRepoModel>>
 
-
 }

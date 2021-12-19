@@ -16,7 +16,6 @@ class ClickRepoPresenter(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-
         loadData()
     }
 

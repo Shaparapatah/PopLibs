@@ -17,6 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Название репозитория" />
 
+
     <ProgressBar
         android:id="@+id/loadingView"
         android:layout_width="100dp"
