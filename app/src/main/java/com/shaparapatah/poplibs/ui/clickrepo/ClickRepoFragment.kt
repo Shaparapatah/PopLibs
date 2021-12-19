@@ -58,6 +58,8 @@ class ClickRepoFragment : MvpAppCompatFragment(), ClickRepoView, BackButtonListe
         binding.textViewRepos.text = repos.toString()
     }
 
+
+
     override fun showLoading() {
         binding.loadingView.isVisible = true
         binding.textViewRepos.isVisible = false

@@ -48,7 +48,7 @@ class GithubRepoRepositoryImpl(
                 }
         } else {
             Single.fromCallable {
-                db.repoDao.getByUserId(repoModel.id)
+                db.repoDao.getByUserId(repoModel.name)
                     .map { GithubRepoModel(it.id, it.name, GithubRepoOwner(it.id), it.forkCount) }
             }
         }

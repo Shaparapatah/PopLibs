@@ -1,6 +1,9 @@
 package com.shaparapatah.poplibs.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
+import kotlinx.parcelize.Parcelize
+import java.io.Serializable
 
 
 data class GithubRepoModel(
@@ -15,13 +18,13 @@ data class GithubRepoModel(
 
     @Expose
     val forksCount: Int
-)
+) : Serializable
 
 
 data class GithubRepoOwner(
     @Expose
     val id: String
-)
+) : Serializable
 
 
 
