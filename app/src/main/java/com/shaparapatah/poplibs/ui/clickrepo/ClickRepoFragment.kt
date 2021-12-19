@@ -14,6 +14,7 @@ import com.shaparapatah.poplibs.model.GithubRepoModel
 import com.shaparapatah.poplibs.remote.ApiHolder
 import com.shaparapatah.poplibs.remote.connectivity.NetworkStatus
 import com.shaparapatah.poplibs.room.AppDataBase
+import com.shaparapatah.poplibs.room.GithubRepoCache
 import com.shaparapatah.poplibs.ui.base.BackButtonListener
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -27,7 +28,7 @@ class ClickRepoFragment : MvpAppCompatFragment(), ClickRepoView, BackButtonListe
             repo = GithubRepoRepositoryImpl(
                 networkStatus = NetworkStatus(requireContext()),
                 retrofitService = ApiHolder.retrofitService,
-                db = AppDataBase.instance
+                repoCache = GithubRepoCache(AppDataBase.instance)
             )
         )
     }

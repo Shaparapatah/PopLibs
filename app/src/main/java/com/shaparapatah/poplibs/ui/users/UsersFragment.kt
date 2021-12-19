@@ -13,6 +13,7 @@ import com.shaparapatah.poplibs.model.GithubUserModel
 import com.shaparapatah.poplibs.remote.ApiHolder
 import com.shaparapatah.poplibs.remote.connectivity.NetworkStatus
 import com.shaparapatah.poplibs.room.AppDataBase
+import com.shaparapatah.poplibs.room.GithubUserCache
 import com.shaparapatah.poplibs.ui.base.BackButtonListener
 import com.shaparapatah.poplibs.ui.imageloading.GlideImageLoader
 import com.shaparapatah.poplibs.ui.users.adapter.UsersAdapter
@@ -29,7 +30,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
             GithubUsersRepositoryImpl(
                 networkStatus = status,
                 retrofitService = ApiHolder.retrofitService,
-                db = AppDataBase.instance
+                usersCache = GithubUserCache(AppDataBase.instance)
             )
         )
     }
