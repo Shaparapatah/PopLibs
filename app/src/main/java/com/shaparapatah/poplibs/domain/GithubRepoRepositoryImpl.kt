@@ -33,4 +33,24 @@ class GithubRepoRepositoryImpl(
             }
         }
     }
+
+    override fun onClickedRepos(repoModel: GithubRepoModel): Single<List<GithubRepoModel>> {
+        return if (networkStatus.isOnline()) {
+            retrofitService.getRepos(repoModel.id)
+                .flatMap { repos ->
+                    Single.fromCallable {
+                        val clickedRepos = repos.map {
+                            RoomGithubRepository(it.id, it.name, it.owner.id, it.forksCount)
+                        }
+                        db.repoDao.insert(clickedRepos)
+                        repos
+                    }
+                }
+        } else {
+            Single.fromCallable {
+                db.repoDao.getByUserId(repoModel.id)
+                    .map { GithubRepoModel(it.id, it.name, GithubRepoOwner(it.id), it.forkCount) }
+            }
+        }
+    }
 }

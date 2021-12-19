@@ -2,15 +2,13 @@ package com.shaparapatah.poplibs.ui.clickrepo
 
 import com.github.terrakok.cicerone.Router
 import com.shaparapatah.poplibs.domain.GitHubRepoRepository
-import com.shaparapatah.poplibs.domain.GithubRepoRepositoryImpl
 import com.shaparapatah.poplibs.model.GithubRepoModel
-import com.shaparapatah.poplibs.model.GithubUserModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers.io
 import moxy.MvpPresenter
 
 class ClickRepoPresenter(
-    private val userModel: GithubUserModel,
+    private val repoModel: GithubRepoModel,
     private val router: Router,
     private val repo: GitHubRepoRepository
 ) : MvpPresenter<ClickRepoView>() {
@@ -23,7 +21,7 @@ class ClickRepoPresenter(
     }
 
     private fun loadData() {
-        repo.getRepos(userModel)
+        repo.onClickedRepos(repoModel)
             .subscribeOn(io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { viewState.showLoading() }

@@ -23,7 +23,7 @@ class ClickRepoFragment : MvpAppCompatFragment(), ClickRepoView, BackButtonListe
     private val presenter by moxyPresenter {
         ClickRepoPresenter(
             router = App.instance.router,
-            userModel = userModel!!,
+            repoModel = repoModel!!,
             repo = GithubRepoRepositoryImpl(
                 networkStatus = NetworkStatus(requireContext()),
                 retrofitService = ApiHolder.retrofitService,
@@ -41,8 +41,8 @@ class ClickRepoFragment : MvpAppCompatFragment(), ClickRepoView, BackButtonListe
 //        ClickRepoAdapter { presenter.onRepoClicked(it) }
 //    }
 
-    private val userModel: GithubUserModel by lazy {
-        requireArguments().getSerializable(KEY_REPO_MODEL) as GithubUserModel
+    private val repoModel: GithubRepoModel by lazy {
+        requireArguments().getSerializable(KEY_REPO_MODEL) as GithubRepoModel
     }
 
     override fun onCreateView(
@@ -73,10 +73,8 @@ class ClickRepoFragment : MvpAppCompatFragment(), ClickRepoView, BackButtonListe
 
         private const val KEY_REPO_MODEL = "KEY_REPO_MODEL"
 
-        fun newInstance(repoModel: GithubRepoModel): ClickRepoFragment {
-            return ClickRepoFragment().apply {
-                arguments = bundleOf(KEY_REPO_MODEL to repoModel)
-            }
+        fun newInstance(repoModel: GithubRepoModel) = ClickRepoFragment().apply {
+            arguments = bundleOf(KEY_REPO_MODEL to repoModel)
         }
     }
 
