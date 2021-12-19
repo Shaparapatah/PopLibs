@@ -2,7 +2,9 @@ package com.shaparapatah.poplibs.screens
 
 import com.github.terrakok.cicerone.Screen
 import com.github.terrakok.cicerone.androidx.FragmentScreen
+import com.shaparapatah.poplibs.model.GithubRepoModel
 import com.shaparapatah.poplibs.model.GithubUserModel
+import com.shaparapatah.poplibs.ui.clickrepo.ClickRepoFragment
 import com.shaparapatah.poplibs.ui.repos.ReposFragment
 import com.shaparapatah.poplibs.ui.users.UsersFragment
 
@@ -17,5 +19,7 @@ object AppScreens {
 
     }
 
-
+    fun onClickedReposScreen(repo: GithubRepoModel): Screen = FragmentScreen {
+        ClickRepoFragment.newInstance(repo)
+    }
 }

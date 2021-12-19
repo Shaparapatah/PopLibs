@@ -12,7 +12,7 @@ interface RetrofitService {
     fun getUsers(): Single<List<GithubUserModel>>
 
 
-    @GET()
+    @GET
     fun getRepos(@Url url: String): Single<List<GithubRepoModel>>
 
 
