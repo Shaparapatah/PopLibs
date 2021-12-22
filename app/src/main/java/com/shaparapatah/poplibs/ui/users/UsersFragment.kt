@@ -8,12 +8,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shaparapatah.poplibs.App
 import com.shaparapatah.poplibs.databinding.FragmentUsersBinding
-import com.shaparapatah.poplibs.domain.GithubUsersRepositoryImpl
 import com.shaparapatah.poplibs.model.GithubUserModel
-import com.shaparapatah.poplibs.remote.ApiHolder
-import com.shaparapatah.poplibs.remote.connectivity.NetworkStatus
-import com.shaparapatah.poplibs.room.AppDataBase
-import com.shaparapatah.poplibs.room.GithubUserCache
 import com.shaparapatah.poplibs.ui.base.BackButtonListener
 import com.shaparapatah.poplibs.ui.imageloading.GlideImageLoader
 import com.shaparapatah.poplibs.ui.users.adapter.UsersAdapter
@@ -22,17 +17,11 @@ import moxy.ktx.moxyPresenter
 
 class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
-    private val status by lazy { NetworkStatus(requireContext().applicationContext) }
 
     private val presenter by moxyPresenter {
-        UsersPresenter(
-            App.instance.router,
-            GithubUsersRepositoryImpl(
-                networkStatus = status,
-                retrofitService = ApiHolder.retrofitService,
-                usersCache = GithubUserCache(AppDataBase.instance)
-            )
-        )
+        UsersPresenter().apply {
+            App.instance.appComponent.inject(this)
+        }
     }
 
     private var _binding: FragmentUsersBinding? = null

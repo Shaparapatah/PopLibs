@@ -8,18 +8,27 @@ import com.shaparapatah.poplibs.ui.clickrepo.ClickRepoFragment
 import com.shaparapatah.poplibs.ui.repos.ReposFragment
 import com.shaparapatah.poplibs.ui.users.UsersFragment
 
-object AppScreens {
+interface AppScreens {
+    fun usersScreen(): FragmentScreen
 
-    fun usersScreen(): Screen = FragmentScreen {
+    fun reposScreen(userModel: GithubUserModel): FragmentScreen
+
+    fun onClickedReposScreen(repo: GithubRepoModel): FragmentScreen
+
+}
+
+class AppScreensImpl : AppScreens {
+
+    override fun usersScreen() = FragmentScreen {
         UsersFragment()
     }
 
-    fun reposScreen(userModel: GithubUserModel): Screen = FragmentScreen {
+    override fun reposScreen(userModel: GithubUserModel) = FragmentScreen {
         ReposFragment.newInstance(userModel)
 
     }
 
-    fun onClickedReposScreen(repo: GithubRepoModel): Screen = FragmentScreen {
+    override fun onClickedReposScreen(repo: GithubRepoModel) = FragmentScreen {
         ClickRepoFragment.newInstance(repo)
     }
 }

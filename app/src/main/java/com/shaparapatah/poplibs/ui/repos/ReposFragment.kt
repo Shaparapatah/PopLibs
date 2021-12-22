@@ -24,15 +24,9 @@ class ReposFragment : MvpAppCompatFragment(), ReposView, BackButtonListener {
 
 
     private val presenter by moxyPresenter {
-        ReposPresenter(
-            router = App.instance.router,
-            userModel = userModel!!,
-            repo = GithubRepoRepositoryImpl(
-                networkStatus = NetworkStatus(requireContext()),
-                retrofitService = ApiHolder.retrofitService,
-                repoCache = GithubRepoCache(AppDataBase.instance),
-            )
-        )
+        ReposPresenter(userModel).apply {
+            App.instance.appComponent.inject(this)
+        }
     }
 
     private val userModel: GithubUserModel by lazy {

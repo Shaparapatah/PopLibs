@@ -8,12 +8,21 @@ import com.shaparapatah.poplibs.screens.AppScreens
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers.io
 import moxy.MvpPresenter
+import javax.inject.Inject
 
 class ReposPresenter(
-    private val userModel: GithubUserModel,
-    private val router: Router,
-    private val repo: GitHubRepoRepository
+    private val userModel: GithubUserModel
 ) : MvpPresenter<ReposView>() {
+
+
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var repo: GitHubRepoRepository
+
+    @Inject
+    lateinit var appScreens: AppScreens
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -38,7 +47,7 @@ class ReposPresenter(
     }
 
     fun onRepoClicked(repo: GithubRepoModel) {
-        router.navigateTo(AppScreens.onClickedReposScreen(repo))
+        router.navigateTo(appScreens.onClickedReposScreen(repo))
     }
 
 

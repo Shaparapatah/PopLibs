@@ -7,11 +7,19 @@ import com.shaparapatah.poplibs.screens.AppScreens
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers.io
 import moxy.MvpPresenter
+import javax.inject.Inject
 
-class UsersPresenter(
-    private val router: Router,
-    private val usersRepository: GitHubUsersRepository,
-) : MvpPresenter<UsersView>() {
+class UsersPresenter : MvpPresenter<UsersView>() {
+
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var usersRepository: GitHubUsersRepository
+
+    @Inject
+    lateinit var appScreens: AppScreens
+
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -36,7 +44,7 @@ class UsersPresenter(
     }
 
     fun onUserClicked(userModel: GithubUserModel) {
-        router.navigateTo(AppScreens.reposScreen(userModel))
+        router.navigateTo(appScreens.reposScreen(userModel))
     }
 
 
