@@ -7,10 +7,7 @@ import moxy.viewstate.strategy.alias.AddToEndSingle
 @AddToEndSingle
 interface ClickRepoView : MvpView {
 
-    fun showRepos(repos: List<GithubRepoModel>)
+    fun showRepos(repos: GithubRepoModel)
 
-    fun showLoading()
-
-    fun hideLoading()
 
 }

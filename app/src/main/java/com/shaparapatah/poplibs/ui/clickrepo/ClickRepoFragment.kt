@@ -5,32 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.core.view.isVisible
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.shaparapatah.poplibs.App
 import com.shaparapatah.poplibs.databinding.FragmentClickReposBinding
-import com.shaparapatah.poplibs.domain.GithubRepoRepositoryImpl
 import com.shaparapatah.poplibs.model.GithubRepoModel
-import com.shaparapatah.poplibs.remote.ApiHolder
-import com.shaparapatah.poplibs.remote.connectivity.NetworkStatus
-import com.shaparapatah.poplibs.room.AppDataBase
-import com.shaparapatah.poplibs.room.GithubRepoCache
-import com.shaparapatah.poplibs.ui.base.BackButtonListener
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
-class ClickRepoFragment : MvpAppCompatFragment(), ClickRepoView, BackButtonListener {
+class ClickRepoFragment : MvpAppCompatFragment(), ClickRepoView {
 
     private val presenter by moxyPresenter {
-        ClickRepoPresenter(
-            router = App.instance.router,
-            repoModel = repoModel!!,
-            repo = GithubRepoRepositoryImpl(
-                networkStatus = NetworkStatus(requireContext()),
-                retrofitService = ApiHolder.retrofitService,
-                repoCache = GithubRepoCache(AppDataBase.instance)
-            )
-        )
+        ClickRepoPresenter(repoModel)
     }
 
     private var _binding: FragmentClickReposBinding? = null
@@ -38,7 +21,7 @@ class ClickRepoFragment : MvpAppCompatFragment(), ClickRepoView, BackButtonListe
         get() = _binding!!
 
 
-    private val repoModel: GithubRepoModel by lazy {
+    private val repoModel by lazy {
         requireArguments().getSerializable(KEY_REPO_MODEL) as GithubRepoModel
     }
 
@@ -51,26 +34,11 @@ class ClickRepoFragment : MvpAppCompatFragment(), ClickRepoView, BackButtonListe
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-        binding.textViewRepos.text = LinearLayoutManager(requireContext()).toString()
-    }
+    override fun showRepos(repos: GithubRepoModel) {
+        "Количество форков : ${repos.forksCount}".also { binding.textViewRepos.text = it }
 
-
-    override fun showRepos(repos: List<GithubRepoModel>) {
-        binding.textViewRepos.text = repos.toString()
-    }
-
-
-    override fun showLoading() {
-        binding.loadingView.isVisible = true
-        binding.textViewRepos.isVisible = false
-    }
-
-    override fun hideLoading() {
-        binding.loadingView.isVisible = false
-        binding.textViewRepos.isVisible = true
+        binding.textViewName.text = repos.name
     }
 
 
@@ -86,10 +54,5 @@ class ClickRepoFragment : MvpAppCompatFragment(), ClickRepoView, BackButtonListe
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-    }
-
-    override fun backPressed(): Boolean {
-        presenter.backPressed()
-        return true
     }
 }

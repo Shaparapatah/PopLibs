@@ -9,34 +9,15 @@ import moxy.MvpPresenter
 
 class ClickRepoPresenter(
     private val repoModel: GithubRepoModel,
-    private val router: Router,
-    private val repo: GitHubRepoRepository
+
 ) : MvpPresenter<ClickRepoView>() {
 
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        loadData()
+
+
+        viewState.showRepos(repoModel)
     }
 
-    private fun loadData() {
-        repo.onClickedRepos(repoModel)
-            .subscribeOn(io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { viewState.showLoading() }
-            .subscribe(
-                { repos ->
-                    viewState.showRepos(repos)
-                    viewState.hideLoading()
-
-            },{
-                Throwable("Ошибка загрузки репозитория")
-                    viewState.hideLoading()
-            })
-    }
-
-    fun backPressed(): Boolean {
-        router.exit()
-        return true
-    }
 }
