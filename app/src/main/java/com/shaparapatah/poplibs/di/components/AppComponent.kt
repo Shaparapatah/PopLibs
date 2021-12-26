@@ -22,9 +22,9 @@ interface AppComponent {
 
     fun mainPresenter(): MainPresenter
 
+    fun usersPresenter(): UsersPresenter
+
+    fun reposPresenterFactory(): ReposPresenter.ReposPresenterFactory
+
     fun inject(mainActivity: MainActivity)
-
-    fun inject(usersPresenter: UsersPresenter)
-
-    fun inject(reposPresenter: ReposPresenter)
 }

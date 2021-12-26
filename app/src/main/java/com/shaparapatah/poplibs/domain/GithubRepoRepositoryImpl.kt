@@ -26,7 +26,7 @@ class GithubRepoRepositoryImpl(
             retrofitService.getRepos(repoModel.name)
                 .flatMap(repoCache::insertRepos)
         } else {
-            repoCache.getClikedRepos(repoModel)
+            repoCache.getCliсkedRepos(repoModel)
         }
     }
 }

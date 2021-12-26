@@ -34,7 +34,7 @@ class GithubRepoCache @Inject constructor(
             }
     }
 
-    fun getClikedRepos(userModel: GithubRepoModel): Single<List<GithubRepoModel>> {
+    fun getCliсkedRepos(userModel: GithubRepoModel): Single<List<GithubRepoModel>> {
         return db.repoDao.getByUserId(userModel.id)
             .map { list ->
                 list.map { repo ->

@@ -5,24 +5,21 @@ import com.shaparapatah.poplibs.domain.GitHubRepoRepository
 import com.shaparapatah.poplibs.model.GithubRepoModel
 import com.shaparapatah.poplibs.model.GithubUserModel
 import com.shaparapatah.poplibs.screens.AppScreens
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers.io
 import moxy.MvpPresenter
 import javax.inject.Inject
 
-class ReposPresenter(
-    private val userModel: GithubUserModel
+class ReposPresenter @AssistedInject constructor(
+    private var router: Router,
+    private var repo: GitHubRepoRepository,
+    private var appScreens: AppScreens,
+    @Assisted private val userModel: GithubUserModel
 ) : MvpPresenter<ReposView>() {
 
-
-    @Inject
-    lateinit var router: Router
-
-    @Inject
-    lateinit var repo: GitHubRepoRepository
-
-    @Inject
-    lateinit var appScreens: AppScreens
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -54,5 +51,10 @@ class ReposPresenter(
     fun backPressed(): Boolean {
         router.exit()
         return true
+    }
+
+    @AssistedFactory
+    interface ReposPresenterFactory {
+        fun presenter(userModel: GithubUserModel): ReposPresenter
     }
 }

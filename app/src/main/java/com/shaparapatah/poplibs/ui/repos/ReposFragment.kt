@@ -19,9 +19,7 @@ class ReposFragment : MvpAppCompatFragment(), ReposView, BackButtonListener {
 
 
     private val presenter by moxyPresenter {
-        ReposPresenter(userModel).apply {
-            App.instance.appComponent.inject(this)
-        }
+        App.instance.appComponent.reposPresenterFactory().presenter(userModel)
     }
 
     private val userModel: GithubUserModel by lazy {

@@ -12,6 +12,6 @@ class ContextModule(val app: Application) {
     @Singleton
     @Provides
     fun app(): Context {
-        return app()
+        return app
     }
 }

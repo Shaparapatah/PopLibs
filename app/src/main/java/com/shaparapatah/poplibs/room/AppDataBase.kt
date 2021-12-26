@@ -1,7 +1,9 @@
 package com.shaparapatah.poplibs.room
 
 import androidx.room.Database
+import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.shaparapatah.poplibs.App
 import com.shaparapatah.poplibs.room.dao.RepositoryDao
 import com.shaparapatah.poplibs.room.dao.UserDao
 import com.shaparapatah.poplibs.room.model.RoomGithubRepository
@@ -22,10 +24,10 @@ abstract class AppDataBase : RoomDatabase() {
     companion object {
         private const val DB_NAME = "database.db"
 
-//        val instance by lazy {
-//            Room.databaseBuilder(App.instance, AppDataBase::class.java, DB_NAME)
-//                .build()
-//        }
+        val instance by lazy {
+            Room.databaseBuilder(App.instance, AppDataBase::class.java, DB_NAME)
+                .build()
+        }
 
     }
 }
