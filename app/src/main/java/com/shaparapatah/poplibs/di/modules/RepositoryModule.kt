@@ -10,10 +10,12 @@ import com.shaparapatah.poplibs.room.GithubRepoCache
 import com.shaparapatah.poplibs.room.GithubUserCache
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 @Module
 class RepositoryModule {
 
+    @Singleton
     @Provides
     fun usersRepo(
         networkStatus: NetworkStatus,
@@ -23,6 +25,7 @@ class RepositoryModule {
         return GithubUsersRepositoryImpl(retrofitService, networkStatus, usersCache)
     }
 
+    @Singleton
     @Provides
     fun reposRepo(
         retrofitService: RetrofitService,

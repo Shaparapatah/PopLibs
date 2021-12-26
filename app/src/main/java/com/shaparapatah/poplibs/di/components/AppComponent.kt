@@ -6,7 +6,9 @@ import com.shaparapatah.poplibs.ui.main.MainPresenter
 import com.shaparapatah.poplibs.ui.repos.ReposPresenter
 import com.shaparapatah.poplibs.ui.users.UsersPresenter
 import dagger.Component
+import javax.inject.Singleton
 
+@Singleton
 @Component(
     modules = [
         CacheModule::class,
@@ -18,9 +20,9 @@ import dagger.Component
 )
 interface AppComponent {
 
-    fun inject(mainActivity: MainActivity)
+    fun mainPresenter(): MainPresenter
 
-    fun inject(mainPresenter: MainPresenter)
+    fun inject(mainActivity: MainActivity)
 
     fun inject(usersPresenter: UsersPresenter)
 

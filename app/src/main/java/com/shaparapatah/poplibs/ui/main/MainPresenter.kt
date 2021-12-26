@@ -5,13 +5,11 @@ import com.shaparapatah.poplibs.screens.AppScreens
 import moxy.MvpPresenter
 import javax.inject.Inject
 
-class MainPresenter : MvpPresenter<MainView>() {
+class MainPresenter @Inject constructor(
+    private val router: Router,
+    private val appScreens: AppScreens
+) : MvpPresenter<MainView>() {
 
-    @Inject
-    lateinit var router: Router
-
-    @Inject
-    lateinit var appScreens: AppScreens
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()

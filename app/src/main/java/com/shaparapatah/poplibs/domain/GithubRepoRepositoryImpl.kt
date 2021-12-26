@@ -1,13 +1,10 @@
 package com.shaparapatah.poplibs.domain
 
 import com.shaparapatah.poplibs.model.GithubRepoModel
-import com.shaparapatah.poplibs.model.GithubRepoOwner
 import com.shaparapatah.poplibs.model.GithubUserModel
 import com.shaparapatah.poplibs.remote.RetrofitService
 import com.shaparapatah.poplibs.remote.connectivity.NetworkStatus
-import com.shaparapatah.poplibs.room.AppDataBase
 import com.shaparapatah.poplibs.room.GithubRepoCache
-import com.shaparapatah.poplibs.room.model.RoomGithubRepository
 import io.reactivex.rxjava3.core.Single
 
 class GithubRepoRepositoryImpl(

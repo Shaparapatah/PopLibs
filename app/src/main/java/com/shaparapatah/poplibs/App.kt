@@ -1,15 +1,13 @@
 package com.shaparapatah.poplibs
 
 import android.app.Application
-import com.github.terrakok.cicerone.Cicerone
-import com.github.terrakok.cicerone.Router
 import com.shaparapatah.poplibs.di.components.AppComponent
 import com.shaparapatah.poplibs.di.components.DaggerAppComponent
 import com.shaparapatah.poplibs.di.modules.ContextModule
 
 class App : Application() {
 
-    val appComponent: AppComponent by lazy {
+    var appComponent: AppComponent by lazy {
         DaggerAppComponent.builder()
             .contextModule(ContextModule(this))
             .build()
@@ -27,3 +25,4 @@ class App : Application() {
             get() = _instance!!
     }
 }
+

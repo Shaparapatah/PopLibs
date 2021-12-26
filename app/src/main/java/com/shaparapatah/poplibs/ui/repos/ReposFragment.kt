@@ -9,13 +9,8 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shaparapatah.poplibs.App
 import com.shaparapatah.poplibs.databinding.FragmentReposBinding
-import com.shaparapatah.poplibs.domain.GithubRepoRepositoryImpl
 import com.shaparapatah.poplibs.model.GithubRepoModel
 import com.shaparapatah.poplibs.model.GithubUserModel
-import com.shaparapatah.poplibs.remote.ApiHolder
-import com.shaparapatah.poplibs.remote.connectivity.NetworkStatus
-import com.shaparapatah.poplibs.room.AppDataBase
-import com.shaparapatah.poplibs.room.GithubRepoCache
 import com.shaparapatah.poplibs.ui.base.BackButtonListener
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter

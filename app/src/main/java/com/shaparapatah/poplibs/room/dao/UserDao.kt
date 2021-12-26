@@ -1,11 +1,6 @@
 package com.shaparapatah.poplibs.room.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.shaparapatah.poplibs.room.model.RoomGithubUser
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
