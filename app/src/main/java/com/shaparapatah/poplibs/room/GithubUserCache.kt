@@ -3,8 +3,9 @@ package com.shaparapatah.poplibs.room
 import com.shaparapatah.poplibs.model.GithubUserModel
 import com.shaparapatah.poplibs.room.model.RoomGithubUser
 import io.reactivex.rxjava3.core.Single
+import javax.inject.Inject
 
-class GithubUserCache(
+class GithubUserCache @Inject constructor(
     private val db: AppDataBase,
 ) {
 

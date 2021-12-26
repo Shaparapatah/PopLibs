@@ -7,7 +7,7 @@ import com.shaparapatah.poplibs.di.modules.ContextModule
 
 class App : Application() {
 
-    var appComponent: AppComponent by lazy {
+    val appComponent: AppComponent by lazy {
         DaggerAppComponent.builder()
             .contextModule(ContextModule(this))
             .build()

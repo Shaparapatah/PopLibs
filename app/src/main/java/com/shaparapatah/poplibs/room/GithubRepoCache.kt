@@ -5,8 +5,9 @@ import com.shaparapatah.poplibs.model.GithubRepoOwner
 import com.shaparapatah.poplibs.model.GithubUserModel
 import com.shaparapatah.poplibs.room.model.RoomGithubRepository
 import io.reactivex.rxjava3.core.Single
+import javax.inject.Inject
 
-class GithubRepoCache(
+class GithubRepoCache @Inject constructor(
     private val db: AppDataBase
 ) {
 
@@ -33,18 +34,18 @@ class GithubRepoCache(
             }
     }
 
-        fun getClikedRepos(userModel: GithubRepoModel): Single<List<GithubRepoModel>> {
-            return db.repoDao.getByUserId(userModel.id)
-                .map { list ->
-                    list.map { repo ->
-                        GithubRepoModel(
-                            repo.id,
-                            repo.name,
-                            GithubRepoOwner(repo.userId),
-                            repo.forkCount
-                        )
-                    }
-
+    fun getClikedRepos(userModel: GithubRepoModel): Single<List<GithubRepoModel>> {
+        return db.repoDao.getByUserId(userModel.id)
+            .map { list ->
+                list.map { repo ->
+                    GithubRepoModel(
+                        repo.id,
+                        repo.name,
+                        GithubRepoOwner(repo.userId),
+                        repo.forkCount
+                    )
                 }
-        }
+
+            }
     }
+}
