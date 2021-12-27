@@ -1,6 +1,7 @@
 package com.shaparapatah.poplibs.ui.repos
 
 import com.github.terrakok.cicerone.Router
+import com.shaparapatah.poplibs.di.scope.containers.ReposScopeContainer
 import com.shaparapatah.poplibs.domain.GitHubRepoRepository
 import com.shaparapatah.poplibs.model.GithubRepoModel
 import com.shaparapatah.poplibs.model.GithubUserModel
@@ -11,12 +12,12 @@ import dagger.assisted.AssistedInject
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers.io
 import moxy.MvpPresenter
-import javax.inject.Inject
 
 class ReposPresenter @AssistedInject constructor(
     private var router: Router,
     private var repo: GitHubRepoRepository,
     private var appScreens: AppScreens,
+    private val reposScopeContainer: ReposScopeContainer,
     @Assisted private val userModel: GithubUserModel
 ) : MvpPresenter<ReposView>() {
 
@@ -25,6 +26,13 @@ class ReposPresenter @AssistedInject constructor(
         super.onFirstViewAttach()
 
         loadData()
+    }
+
+
+    override fun onDestroy() {
+        reposScopeContainer.destroyRepoSubcomponent()
+        super.onDestroy()
+
     }
 
     private fun loadData() {
@@ -52,9 +60,9 @@ class ReposPresenter @AssistedInject constructor(
         router.exit()
         return true
     }
+}
 
-    @AssistedFactory
-    interface ReposPresenterFactory {
-        fun presenter(userModel: GithubUserModel): ReposPresenter
-    }
+@AssistedFactory
+interface ReposPresenterFactory {
+    fun presenter(userModel: GithubUserModel): ReposPresenter
 }

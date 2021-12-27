@@ -6,8 +6,9 @@ import com.shaparapatah.poplibs.remote.RetrofitService
 import com.shaparapatah.poplibs.remote.connectivity.NetworkStatus
 import com.shaparapatah.poplibs.room.GithubRepoCache
 import io.reactivex.rxjava3.core.Single
+import javax.inject.Inject
 
-class GithubRepoRepositoryImpl(
+class GithubRepoRepositoryImpl @Inject constructor(
     private val retrofitService: RetrofitService,
     private val networkStatus: NetworkStatus,
     private val repoCache: GithubRepoCache

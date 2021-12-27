@@ -1,6 +1,7 @@
 package com.shaparapatah.poplibs.ui.users
 
 import com.github.terrakok.cicerone.Router
+import com.shaparapatah.poplibs.di.scope.containers.UsersScopeContainer
 import com.shaparapatah.poplibs.domain.GitHubUsersRepository
 import com.shaparapatah.poplibs.model.GithubUserModel
 import com.shaparapatah.poplibs.screens.AppScreens
@@ -13,6 +14,7 @@ class UsersPresenter @Inject constructor(
     private var router: Router,
     private var usersRepository: GitHubUsersRepository,
     private var appScreens: AppScreens,
+    private val usersScopeContainer: UsersScopeContainer
 ) : MvpPresenter<UsersView>() {
 
 
@@ -20,6 +22,12 @@ class UsersPresenter @Inject constructor(
         super.onFirstViewAttach()
 
         loadData()
+    }
+
+
+    override fun onDestroy() {
+        usersScopeContainer.destroyUsersSubcomponent()
+        super.onDestroy()
     }
 
     private fun loadData() {

@@ -19,7 +19,8 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
 
     private val presenter by moxyPresenter {
-        App.instance.appComponent.usersPresenter()
+        App.instance.initUsersSubcomponent()
+        App.instance.userSubcomponent?.provideUsersPresenter()!!
     }
 
     private var _binding: FragmentUsersBinding? = null

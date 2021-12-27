@@ -1,30 +1,28 @@
 package com.shaparapatah.poplibs.di.components
 
-import com.shaparapatah.poplibs.di.modules.*
+import com.shaparapatah.poplibs.di.modules.AppModule
+import com.shaparapatah.poplibs.di.modules.CiceroneModule
+import com.shaparapatah.poplibs.di.modules.DbModule
+import com.shaparapatah.poplibs.di.modules.NetworkModule
 import com.shaparapatah.poplibs.ui.main.MainActivity
 import com.shaparapatah.poplibs.ui.main.MainPresenter
-import com.shaparapatah.poplibs.ui.repos.ReposPresenter
-import com.shaparapatah.poplibs.ui.users.UsersPresenter
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
 @Component(
     modules = [
-        CacheModule::class,
+        DbModule::class,
         CiceroneModule::class,
-        ContextModule::class,
+        AppModule::class,
         NetworkModule::class,
-        RepositoryModule::class
     ]
 )
 interface AppComponent {
 
+    fun userSubcomponent(): GithubUsersSubcomponent
+
     fun mainPresenter(): MainPresenter
-
-    fun usersPresenter(): UsersPresenter
-
-    fun reposPresenterFactory(): ReposPresenter.ReposPresenterFactory
 
     fun inject(mainActivity: MainActivity)
 }
