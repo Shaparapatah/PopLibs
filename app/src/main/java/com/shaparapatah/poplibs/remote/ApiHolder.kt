@@ -22,7 +22,7 @@ object ApiHolder {
             .create()
     }
 
-    private fun getRetrofit(): Retrofit {
+     fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://api.github.com")
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
