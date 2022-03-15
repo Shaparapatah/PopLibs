@@ -1,7 +1,6 @@
-package com.shaparapatah.poplibs.UserPresenterTest
+package com.shaparapatah.poplibs
 
 import com.github.terrakok.cicerone.Router
-import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
 import com.shaparapatah.poplibs.di.scope.containers.UsersScopeContainer
@@ -12,6 +11,7 @@ import com.shaparapatah.poplibs.ui.users.UsersPresenter
 import okhttp3.Request
 import okio.Timeout
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -90,6 +90,34 @@ class UserPresenterTest {
 
         `when`(response.isSuccessful).thenReturn(false)
         assertFalse(response.isSuccessful)
+    }
+
+    @Test
+    fun `testing errors`(){
+        val response = Mockito.mock(Response::class.java) as Response<GithubUserModel>
+        `when`(response.isSuccessful).thenReturn(false)
+        presenter.loadData()
+        verify(repository, times(1)).getUsers()
+        //todo постоянная ошибка при работе с презентером в котором не обьявленна View
+    }
+
+    @Test
+    fun `response empty`() {
+        val response = Mockito.mock(Response::class.java) as Response<GithubUserModel>
+        `when`(response.body()).thenReturn(null)
+      //  presenter.onUserClicked(response)
+        assertNull(response.body())
+    }
+    //todo Я не понял, как возвращать результат. Я скастил response в GithubUserModel, который
+    //todo мне нужен для работы. Но его не распознаёт...
+
+    @Test
+    fun `if response empty`() {
+        val response = Mockito.mock(Response::class.java) as Response<GithubUserModel>
+        `when`(response.isSuccessful).thenReturn(true)
+        `when`(response.body()).thenReturn(null)
+
+        verify(router)
     }
 
 }
