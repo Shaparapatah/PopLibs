@@ -11,10 +11,12 @@ import com.shaparapatah.poplibs.screens.AppScreens
 import com.shaparapatah.poplibs.ui.users.UsersPresenter
 import okhttp3.Request
 import okio.Timeout
+import org.junit.Assert.assertFalse
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 import retrofit2.Call
 import retrofit2.Callback
@@ -79,8 +81,15 @@ class UserPresenterTest {
             override fun timeout(): Timeout {
                 TODO("Not yet implemented")
             }
-
         }
+    }
+
+    @Test
+    fun `callback from server`() {
+        val response = Mockito.mock(Response::class.java) as Response<GithubUserModel>
+
+        `when`(response.isSuccessful).thenReturn(false)
+        assertFalse(response.isSuccessful)
     }
 
 }
