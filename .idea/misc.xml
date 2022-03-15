@@ -4,7 +4,24 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Shaparapatah/AndroidStudioProjects/PopLibs/app/src/main/res/layout/activity_main.xml" value="0.17" />
+        <entry key="..\:/Users/Shaparapatah/AndroidStudioProjects/PopLibs/app/src/main/res/layout/activity_view.xml" value="0.1425925925925926" />
+        <entry key="..\:/Users/Shaparapatah/AndroidStudioProjects/PopLibs/app/src/main/res/layout/fragment_click_repos.xml" value="0.22" />
+        <entry key="..\:/Users/Shaparapatah/AndroidStudioProjects/PopLibs/app/src/main/res/layout/fragment_picture.xml" value="0.21" />
+        <entry key="..\:/Users/Shaparapatah/AndroidStudioProjects/PopLibs/app/src/main/res/layout/fragment_repos.xml" value="0.18" />
+        <entry key="..\:/Users/Shaparapatah/AndroidStudioProjects/PopLibs/app/src/main/res/layout/fragment_repository_info.xml" value="0.1685185185185185" />
+        <entry key="..\:/Users/Shaparapatah/AndroidStudioProjects/PopLibs/app/src/main/res/layout/fragment_user.xml" value="0.25" />
+        <entry key="..\:/Users/Shaparapatah/AndroidStudioProjects/PopLibs/app/src/main/res/layout/fragment_user_info.xml" value="0.18" />
+        <entry key="..\:/Users/Shaparapatah/AndroidStudioProjects/PopLibs/app/src/main/res/layout/fragment_user_view.xml" value="0.15462962962962962" />
+        <entry key="..\:/Users/Shaparapatah/AndroidStudioProjects/PopLibs/app/src/main/res/layout/fragment_users.xml" value="0.16203703703703703" />
+        <entry key="..\:/Users/Shaparapatah/AndroidStudioProjects/PopLibs/app/src/main/res/layout/fragment_view_presenter.xml" value="0.15833333333333333" />
+        <entry key="..\:/Users/Shaparapatah/AndroidStudioProjects/PopLibs/app/src/main/res/layout/fragment_view_user.xml" value="0.2" />
+        <entry key="..\:/Users/Shaparapatah/AndroidStudioProjects/PopLibs/app/src/main/res/layout/framgent_view.xml" value="0.1425925925925926" />
+        <entry key="..\:/Users/Shaparapatah/AndroidStudioProjects/PopLibs/app/src/main/res/layout/item_clicked_repo.xml" value="0.15833333333333333" />
+        <entry key="..\:/Users/Shaparapatah/AndroidStudioProjects/PopLibs/app/src/main/res/layout/item_repo.xml" value="0.16203703703703703" />
+        <entry key="..\:/Users/Shaparapatah/AndroidStudioProjects/PopLibs/app/src/main/res/layout/item_user.xml" value="0.25" />
+        <entry key="..\:/Users/Shaparapatah/AndroidStudioProjects/PopLibs/app/src/main/res/layout/list_item.xml" value="0.33" />
         <entry key="..\:/Users/Shaparapatah/AndroidStudioProjects/PopLibs/app/src/main/res/layout/man_fragment.xml" value="0.1388888888888889" />
+        <entry key="..\:/Users/Shaparapatah/AndroidStudioProjects/PopLibs/app/src/main/res/layout/repository_list_item.xml" value="0.25" />
       </map>
     </option>
   </component>
