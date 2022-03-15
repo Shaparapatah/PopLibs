@@ -30,7 +30,7 @@ class UsersPresenter @Inject constructor(
         super.onDestroy()
     }
 
-    private fun loadData() {
+     fun loadData() {
         usersRepository.getUsers()
             .subscribeOn(io())
             .observeOn(AndroidSchedulers.mainThread())
